@@ -6,9 +6,14 @@ use App\Models\Cart;
 Route::get('/', function () {
 	$c = [];
 
-	// $c = Cart::create(['id' => '555','area_id' => null,'user_id' => null,'ip' => '']);
+	$c = Cart::create([
+		'id' => iniqid(),
+		'area_id' => null,
+		'user_id' => null,
+		'ip' => ''
+	]);
 
-	$c = Cart::where('id', '555')->first();
+	$c = Cart::where('id', $c->id)->first();
 
 	// Add variants
 	$c->variants()->sync([
