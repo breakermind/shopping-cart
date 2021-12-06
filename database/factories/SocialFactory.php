@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Carti\Models\Social;
+use App\Models\Social;
 
 
 class SocialFactory extends Factory

@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Carti\Models\Day;
+use App\Models\Day;
 
 
 class DayFactory extends Factory
