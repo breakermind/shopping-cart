@@ -34,11 +34,6 @@ class CreateRestaurantsTable extends Migration
 			// Marker
 			$table->decimal('lng',15,6)->nullable()->default('0.000000');
 			$table->decimal('lat',15,6)->nullable()->default('0.000000');
-			// Social
-			// $table->string('social_fb')->nullable()->default('');
-			// $table->string('social_tw')->nullable()->default('');
-			// $table->string('social_in')->nullable()->default('');
-			// $table->string('social_yt')->nullable()->default('');
 			// Date
 			$table->timestamps();
 			$table->softDeletes();

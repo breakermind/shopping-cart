@@ -19,7 +19,20 @@ class CreateAddonGroupsTable extends Migration
 			$table->timestamps();
 			$table->unique(['name','size']);
 			$table->softDeletes();
-		});		
+		});
+
+		Schema::create('addon_group_variant', function (Blueprint $table) {
+			$table->id('id');
+
+			$table->unsignedBigInteger('variant_id')->default(0)->index();
+			$table->foreign('variant_id')->references('id')->on('variants')->onDelete('cascade');
+
+			$table->unsignedBigInteger('addon_group_id')->default(0)->index();
+			$table->foreign('addon_group_id')->references('id')->on('addon_groups')->onDelete('cascade');
+
+			$table->timestamps();
+			$table->softDeletes();
+		});
 
 		Schema::create('addon_addon_group', function (Blueprint $table) {
 			$table->id('id');
@@ -33,25 +46,12 @@ class CreateAddonGroupsTable extends Migration
 			$table->timestamps();
 			$table->softDeletes();
 		});
-		
-		Schema::create('addon_group_variant', function (Blueprint $table) {
-			$table->id('id');
-
-			$table->unsignedBigInteger('variant_id')->default(0)->index();
-			$table->foreign('variant_id')->references('id')->on('variants')->onDelete('cascade');
-
-			$table->unsignedBigInteger('addon_group_id')->default(0)->index();
-			$table->foreign('addon_group_id')->references('id')->on('addon_groups')->onDelete('cascade');
-
-			$table->timestamps();
-			$table->softDeletes();
-		});
 	}
 
 	public function down()
 	{
-    	Schema::dropIfExists('addon_group_variant');
-		Schema::dropIfExists('addon_addon_group');		
+		Schema::dropIfExists('addon_addon_group');
+		Schema::dropIfExists('addon_group_variant');
 		Schema::dropIfExists('addon_groups');
 	}
 }
