@@ -1,65 +1,70 @@
 # Restaurant Shopping Cart
-How to create a basket of products with addons for a restaurant in Laravel.
+How to create a basket of products with addons for a restaurant in Laravel. Laravel relations pivot table with additional extra parameters and custom pivot models.
 
-### Database tables
-Add records to the database first
-- Area
+### Copy files and set .env
+```sh
+composer create-project laravel/laravel demo
+```
+
+### Create database tables
+```sh
+php artisan migrate
+```
+
+### Import or create tables data
+Add rows to the database first (or import db: demo.sql)
 - Restaurant
 - Products
 - Variants
 - Addons
 
-### Cart
-Add records to the database first
+### Cart example
 ```php
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Models\Cart;
 
-Route::get('/cart', function () {
+Route::get('/', function () {
 
-	$c = [];
-	
-	// Create with: uniqid()
-	$c = Cart::create([
-		'id' => '777',
+	$cart = [];
+
+	// New
+	$cart = Cart::create([
+		'id' => uniqid(),
 		'area_id' => null,
 		'user_id' => null,
-		'ip' => '';
+		'ip' => ''
 	]);
 
 	// Get
-	$c = Cart::where('id', $c->id)->first();
+	$cart = Cart::where('id', $cart->id)->first();
 
-	// Add variant id
-	$c->variants()->sync([
-		1 => ['quantity' => 3],
-		2 => ['quantity' => 2]
+	// Add product variant/s
+	$cart->variants()->sync([
+		1 => ['quantity' => 2],
+		2 => ['quantity' => 3]
 	]);
 
-	$v = $c->variants;
+	// Get variants
+	$list = $cart->variants;
 
-	$p1 = $c->variants()->first()->pivot;
-	
-	$p1->addons()->sync([
+	// Get variant
+	$variant = $cart->variants()->first();
+
+	// Add addons
+	$variant->pivot->addons()->sync([
 		1 => ['quantity' => 3],
 		2 => ['quantity' => 1]
 	]);
 
-	$p2 = $c->variants()->find(2)->pivot;
-	
-	$p2->addons()->sync([
-		2 => ['quantity' => 5]
-	]);
-
-	$a1 = $p1->addons;
-	$a2 = $p2->addons;
+	// Get addons
+	$addons = $variant->pivot->addons;
 
 	return [
-		// 'variants' => $v,
-		'variant 1' => $p1,
-		'variant 2' => $p2,
+		'variants' => $list,
+		'variant' => $variant,
+		'addons' => $addons,
 	];
-	
+
 });
 ```
