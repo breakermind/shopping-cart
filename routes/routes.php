@@ -3,57 +3,39 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\Cart;
 
-/*
-    Add first into db:
-    - Area
-    - Restaurant
-    - Products
-    - Variants
-    - Addons
-*/
-Route::get('/cart', function () {
-
+Route::get('/', function () {
 	$c = [];
-	
-	// Create with: uniqid()
-    $c = Cart::create([
-        'id' => '777',
-        'area_id' => null,
-        'user_id' => null,
-        'ip' => '';
-    ]);
-    
-    // Get
-	$c = Cart::where('id', $c->id)->first();
 
-	// Add variant id
+	// $c = Cart::create(['id' => '555','area_id' => null,'user_id' => null,'ip' => '']);
+
+	$c = Cart::where('id', '555')->first();
+
+	// Add variants
 	$c->variants()->sync([
-		1 => ['quantity' => 3],
-		2 => ['quantity' => 2]
+		1 => ['quantity' => 2],
+		2 => ['quantity' => 3]
 	]);
 
-	$v = $c->variants;
+	// Variants
+	$list = $c->variants;
 
-	$p1 = $c->variants()->first()->pivot;
-	
-	$p1->addons()->sync([
+	// Variant
+	$variant = $c->variants()->first();
+
+	// Add addons
+	$variant->pivot->addons()->sync([
 		1 => ['quantity' => 3],
 		2 => ['quantity' => 1]
 	]);
 
-	$p2 = $c->variants()->find(2)->pivot;
-	
-	$p2->addons()->sync([
-		2 => ['quantity' => 5]
-	]);
-
-	$a1 = $p1->addons;
-	$a2 = $p2->addons;
+	// Get addons
+	$addons = $variant->pivot->addons;
 
 	return [
-		// 'variants' => $v,
-		'variant 1' => $p1,
-		'variant 2' => $p2,
+		'variants' => $list,
+		'variant' => $variant,
+		'addons' => $addons,
 	];
-	
+
+	// return view('welcome');
 });
