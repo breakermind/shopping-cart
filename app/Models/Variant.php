@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Product;
+use App\Models\AddonGroup;
 
 class Variant extends Model
 {
@@ -27,4 +28,13 @@ class Variant extends Model
     {
     	return $this->belongsTo(Product::class);
     }
+
+	public function groups() {
+		return $this->belongsToMany(AddonGroup::class);
+	}
+
+	public function getGroupsIdAttribute() {
+		// Get group addons ids
+		return $this->groups->pluck('id')->toArray();
+	}
 }
