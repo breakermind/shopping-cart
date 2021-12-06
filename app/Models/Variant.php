@@ -29,11 +29,13 @@ class Variant extends Model
 		return $this->belongsTo(Product::class);
 	}
 
-	public function groups() {
+	public function groups()
+	{
 		return $this->belongsToMany(AddonGroup::class);
 	}
 
-	public function getGroupsIdAttribute() {
+	public function getGroupsIdAttribute()
+	{
 		// Get group addons ids
 		return $this->groups->pluck('id')->toArray();
 	}
