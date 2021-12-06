@@ -19,7 +19,7 @@ class Restaurant extends Model
 	protected $hidden = [
 		'updated_at',
 		'deleted_at',
-		// 'notify_sms',
+		'notify_sms',
 	];
 
 	protected $casts = [

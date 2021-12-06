@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
+use App\Models\Addon;
 
 class CartAddon extends Pivot
 {
@@ -11,4 +12,9 @@ class CartAddon extends Pivot
 		'updated_at',
 		'deleted_at'
 	];
+
+	function addon()
+	{
+		return $this->belongsTo(Addon::class);
+	}
 }

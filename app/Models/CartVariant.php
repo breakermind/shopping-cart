@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use App\Models\Addon;
+use App\Models\Product;
 use App\Models\CartAddon;
 
 class CartVariant extends Pivot
@@ -14,10 +15,15 @@ class CartVariant extends Pivot
 		'deleted_at'
 	];
 
+	function product()
+    {
+    	return $this->belongsTo(Product::class);
+    }
+
 	function addons()
 	{
 		return $this->belongsToMany(Addon::class)
-			->withPivot('id','quantity')
+			->withPivot('quantity','id')
 			->using(CartAddon::class)
 			->withTimestamps();
 	}
