@@ -45,11 +45,11 @@ class Restaurant extends Model
 
 	function getNotifySmsAttribute()
 	{
-		return preg_replace('/[^\+0-9)(]/', '', $this->attributes['notify_sms']);
+		return preg_replace('/[^\+0-9]/', '', $this->attributes['notify_sms']);
 	}
 
 	function setNotifySmsAttribute($nr)
 	{
-		$this->attributes['notify_sms'] = preg_replace('/[^\+0-9)(]/', '',$nr);
+		$this->attributes['notify_sms'] = preg_replace('/[^\+0-9]/', '',$nr);
 	}
 }
