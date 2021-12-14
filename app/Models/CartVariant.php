@@ -9,6 +9,8 @@ use App\Models\CartAddon;
 
 class CartVariant extends Pivot
 {
+	public $incrementing = true;
+	
 	protected $hidden = [
 		'created_at',
 		'updated_at',
