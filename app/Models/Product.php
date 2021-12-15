@@ -14,14 +14,14 @@ class Product extends Model
 
 	protected $guarded = [];
 
-    protected $hidden = [
+	protected $hidden = [
 		'updated_at',
 		'deleted_at'
 	];
 
 	protected $casts = [
-        'created_at' => 'datetime:Y-m-d h:i:s',
-    ];
+		'created_at' => 'datetime:Y-m-d h:i:s',
+	];
 
 	public function variants() {
 		return $this->hasMany(Variant::class);
