@@ -9,18 +9,18 @@ use App\Models\AddonGroup;
 
 class Addon extends Model
 {
-    use HasFactory, SoftDeletes;
+	use HasFactory, SoftDeletes;
 
-    protected $guarded = [];
+	protected $guarded = [];
 
-    protected $hidden = [
+	protected $hidden = [
 		'updated_at',
 		'deleted_at'
 	];
 
 	protected $casts = [
-        'created_at' => 'datetime:Y-m-d h:i:s',
-    ];
+		'created_at' => 'datetime:Y-m-d h:i:s',
+	];
 
 	public function groups() {
 		return $this->belongsToMany(AddonGroup::class);
