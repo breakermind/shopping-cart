@@ -12,16 +12,16 @@ class AddonGroup extends Model
 {
 	use HasFactory, SoftDeletes;
 
-    protected $guarded = [];
+	protected $guarded = [];
 
-    protected $hidden = [
-        'updated_at',
-        'deleted_at'
-    ];
+	protected $hidden = [
+		'updated_at',
+		'deleted_at'
+	];
 
-    protected $casts = [
-        'created_at' => 'datetime:Y-m-d',
-    ];
+	protected $casts = [
+		'created_at' => 'datetime:Y-m-d',
+	];
 
 	public function addons() {
 		return $this->belongsToMany(Addon::class);
