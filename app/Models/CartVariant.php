@@ -18,9 +18,9 @@ class CartVariant extends Pivot
 	];
 
 	function product()
-    {
-    	return $this->belongsTo(Product::class);
-    }
+	{
+		return $this->belongsTo(Product::class);
+	}
 
 	function addons()
 	{
